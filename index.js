@@ -4,7 +4,8 @@
 // reducer
 // store ==> getState(),dispatch(),subscribe()
 
-
+// require redux store 
+const {createStore} = require('redux'); 
 
 // create INCREMENT and DECREMENT 
 const INCREMENT = 'INCREMENT';
@@ -51,3 +52,6 @@ const counterReducer = (state = initialCountState, action) => {
             state
     }
 }
+
+// create store 
+const store = createStore(counterReducer);
