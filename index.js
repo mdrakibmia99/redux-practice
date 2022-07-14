@@ -1,4 +1,5 @@
-const  {createStore, combineReducers}= require('redux');
+const  {createStore, combineReducers, applyMiddleware}= require('redux');
+const {default:logger}=require('redux-logger')
 
 
 // redux 
@@ -188,7 +189,78 @@ store1.subscribe(()=>{
     console.log(store1.getState())
 })
 
-store1.dispatch(getCart())
-store1.dispatch(addCart("Birthday"))
-store1.dispatch(addProduct("jackfruits"))
+// store1.dispatch(getCart())
+// store1.dispatch(addCart("Birthday"))
+// store1.dispatch(addProduct("jackfruits"))
 
+
+// 
+// 
+// apply middleware 
+// 
+// 
+
+// constant declare 
+const PRODUCT_GET_MANAGEMENT1="PRODUCT_GET_MANAGEMENT1"
+const PRODUCT_ADD_MANAGEMENT1="PRODUCT_ADD_MANAGEMENT1"
+
+
+
+// state declare 
+const initialProduct1={
+    products:['Mango','Banana'],
+    count:2
+}
+
+
+// create action 
+const getProduct1=()=>{
+    return {
+        type:PRODUCT_GET_MANAGEMENT1
+    }
+
+}
+const addProduct1=(product)=>{
+    return{
+        type:PRODUCT_ADD_MANAGEMENT1,
+        payload:product
+    }
+}
+
+
+
+
+// create reducer 
+const productReducer1 =(state=initialProduct1,action)=>{
+    switch (action.type) {
+        case PRODUCT_GET_MANAGEMENT1:
+            return {
+                ...state
+            }
+        case PRODUCT_ADD_MANAGEMENT1:
+            return {
+                products:[...state.products,action.payload],
+                count:state.count + 1
+            }
+            
+        
+    
+        default:
+          return  state
+    }
+}
+
+
+
+
+// store create 
+const store2=createStore(productReducer1,applyMiddleware(logger));
+
+store2.subscribe(()=>{
+    console.log(store2.getState())
+})
+
+
+
+store2.dispatch(getProduct1())
+store2.dispatch(addProduct1("jackfruits"))
