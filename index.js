@@ -1,3 +1,5 @@
+ {/*
+
 // redux has 4 step 
 // 1. state
 // 2.dispatch action
@@ -55,3 +57,89 @@ const counterReducer = (state = initialCountState, action) => {
 
 // create store 
 const store = createStore(counterReducer);
+
+store.subscribe(()=>{
+    console.log(store.getState());
+
+})
+// dispatch action 
+store.dispatch(incrementCounter()); 
+
+*/}
+
+
+
+// redux 
+// 1. state
+// 2.dispatch action
+// reducer
+// store ==> getState(),dispatch(),subscribe()
+
+// create require store 
+const  {createStore}= require('redux');
+
+// const declare 
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+const RESET ="RESET";
+
+// state declare 
+
+const initialCounter ={
+    count:0
+}
+
+
+// action declare  
+const incrementCounterAction =()=>{
+    return{
+        type:INCREMENT
+    }
+}
+const decrementCounterAction =()=>{
+    return{
+        type:DECREMENT
+    }
+}
+const resetCounterAction =()=>{
+    return{
+        type:RESET
+    }
+}
+
+// reducer create 
+  const counterReducer =(state=initialCounter,action)=>{
+    switch (action.type) {
+        case INCREMENT:
+            return{
+
+                count:state.count + 1
+            }
+        case DECREMENT:
+            return{
+                count:state.count - 1
+            }
+        case RESET:
+            return{
+                count:0
+            }
+    
+        default:
+           state
+    }
+
+  } 
+
+//   create store 
+const store =createStore(counterReducer);
+
+// for printf result 
+store.subscribe(()=>{
+    console.log(store.getState())
+})
+
+// dispatch action 
+store.dispatch(incrementCounterAction())
+store.dispatch(incrementCounterAction())
+store.dispatch(decrementCounterAction())
+store.dispatch(resetCounterAction())
